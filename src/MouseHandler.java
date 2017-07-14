@@ -175,7 +175,13 @@ public class MouseHandler implements MouseListener, KeyListener{
 	}
 	
 	public void mouseClicked(MouseEvent e) {
-		
+		if("Pointer".equals(cmd)){
+			if(selectMarker){
+				Color newColor = paint;
+				changeColor(newColor);
+				
+			}
+		}
 	}
   
     public void mouseEntered(MouseEvent e) {
@@ -201,21 +207,6 @@ public class MouseHandler implements MouseListener, KeyListener{
 					iterateShapes(add());
 				}else if(key == KeyEvent.VK_COMMA){
 					iterateShapes(minus());
-				}else if(key == KeyEvent.VK_EQUALS){
-					Shape currentShape = shapes.get(shapeSelected);
-					if(currentShape instanceof Line){
-						double horizontalChange = add(); 
-						double verticalChange;
-						verticalChange = Math.abs(currentShape.getEndY()-currentShape.getInitY()) / Math.abs(currentShape.getEndX() - currentShape.getInitX());
-						Shape newLine = new Line(currentShape.getInitX(),currentShape.getInitY(),currentShape.getEndX()+horizontalChange,currentShape.getEndY()+verticalChange, currentShape.getColor(),currentShape.getStroke());
-						currentShape = newLine;
-					}
-					shapes.remove(shapeSelected);
-					shapes.add(currentShape);
-					frame.centerPanel.repaint();
-					
-				}else if(key == KeyEvent.VK_MINUS){
-					//make things smaller
 				}
 			}
 		}
@@ -223,6 +214,7 @@ public class MouseHandler implements MouseListener, KeyListener{
 
 	@Override
 	public void keyReleased(KeyEvent e) {
+		
 	}
 
 	@Override
@@ -261,5 +253,25 @@ public class MouseHandler implements MouseListener, KeyListener{
 	private int add() {return 1;}
 	
 	private int minus(){return -1;}
+	
+	private void changeColor(Color c){
+		Shape currentShape = shapes.get(shapeSelected);
+		if(currentShape instanceof Rec){
+			Shape newRec = new Rec(currentShape.getInitX(),currentShape.getInitY(),currentShape.getEndX(),currentShape.getEndY(), c, currentShape.getStroke());
+			currentShape = newRec;
+		}else if (currentShape instanceof Line){
+			Shape newLine = new Line(currentShape.getInitX(),currentShape.getInitY(),currentShape.getEndX(),currentShape.getEndY(), c, currentShape.getStroke());
+			currentShape = newLine;
+		}else if(currentShape instanceof Cir){
+			Shape newCir = new Cir(currentShape.getInitX(),currentShape.getInitY(),currentShape.getEndX(),currentShape.getEndY(), c, currentShape.getStroke());
+			currentShape = newCir;
+		}else if(currentShape instanceof Text){
+			Shape newText = new Text(currentShape.getInitX(),currentShape.getInitY(),currentShape.getString(), c, currentShape.getStroke());
+			currentShape = newText;
+		}
+		shapes.remove(shapeSelected);
+		shapes.add(currentShape);
+		frame.centerPanel.repaint();
+	}
 	
 }

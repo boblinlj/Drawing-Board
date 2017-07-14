@@ -55,19 +55,19 @@ public class BoardFrame extends JFrame{
 			}
 			
 		};
-		centerPanel.setPreferredSize(new Dimension(495,0));
+		centerPanel.setPreferredSize(new Dimension(490,0));
 		centerPanel.setBackground(Color.WHITE);
 		mainPanel.add(centerPanel, BorderLayout.WEST);
 		
 		// add right panel
 		JPanel rightPanel = new JPanel();
-		rightPanel.setPreferredSize(new Dimension(105, 0));
+		rightPanel.setPreferredSize(new Dimension(110, 0));
 		rightPanel.setLayout(new BorderLayout());
 		mainPanel.add(rightPanel, BorderLayout.EAST);
 		
 		// add tool panel in right panel
 		JPanel toolPanel = new JPanel();
-		toolPanel.setPreferredSize(new Dimension(0, 350));
+		toolPanel.setPreferredSize(new Dimension(0, 330));
 		toolPanel.setLayout(new FlowLayout(FlowLayout.RIGHT,0,0));
 		rightPanel.add(toolPanel, BorderLayout.NORTH);
 		
@@ -94,20 +94,21 @@ public class BoardFrame extends JFrame{
 		
 		// add color panel in right panel
 		JPanel colorPanel = new JPanel();
-		colorPanel.setPreferredSize(new Dimension(0, 150));
-		colorPanel.setLayout(new FlowLayout(FlowLayout.RIGHT,0,0));
+		colorPanel.setPreferredSize(new Dimension(0, 170));
+		colorPanel.setLayout(new FlowLayout(FlowLayout.RIGHT,1,1));
 		rightPanel.add(colorPanel, BorderLayout.SOUTH);
 		
 		//add button listener, to listen color panel
-		ButtonHandler bl = new ButtonHandler(this);
+		ButtonHandler setColor = new ButtonHandler(this);
+		
 		
 		// add color buttons
-		for (int i=0 ; i<6 ; i++){
+		for (int i=0 ; i<15 ; i++){
 			JButton colorOption = new JButton();
-			Color c = new Color(i*12,i*20+50,i*1+7);
+			Color c = new Color(i*10,i*5+30,i*7+50);
 			colorOption.setBackground(c);
-			colorOption.setPreferredSize(new Dimension(43, 42));
-			colorOption.addActionListener(bl);
+			colorOption.setPreferredSize(new Dimension(30, 30));
+			colorOption.addActionListener(setColor);
 			colorPanel.add(colorOption);
 		}
 		
@@ -117,9 +118,7 @@ public class BoardFrame extends JFrame{
 		//add mouse and keyboard listener
 		Graphics screen =  centerPanel.getGraphics();
 		MouseHandler mouseListener = new MouseHandler(screen, tools, this, shapes);
-//		KeyboardHandler keyboard = new KeyboardHandler(screen, tool, this, shapes);
 		centerPanel.addMouseListener(mouseListener);
-//		centerPanel.addMouseMotionListener(mouseListener);
 		centerPanel.addKeyListener(mouseListener);
 		centerPanel.setFocusable(true);
 		centerPanel.setFocusTraversalKeysEnabled(false);
