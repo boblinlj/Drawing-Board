@@ -7,12 +7,12 @@ import java.io.Serializable;
 
 public class Text extends Shape implements Serializable{
 	
-	private int x1, y1;
+	private double x1, y1;
 	private Color color;
 	private int stroke;
 	private String string;
 	
-	public Text ( int x1, int y1, String string, Color color, int stroke){
+	public Text ( double x1, double y1, String string, Color color, int stroke){
 		this.x1 = x1;
 		this.y1 = y1;
 		this.string = string;
@@ -26,12 +26,12 @@ public class Text extends Shape implements Serializable{
 		g.setColor(color);
 		//stroke as front size
 		g.setFont(new Font("TimesRoman", Font.PLAIN, stroke));
-		g.drawString(string, x1, y1);
+		g.drawString(string, (int)x1, (int)y1);
 
 	}
 
 	@Override
-	public boolean inShape(int x, int y) {
+	public boolean inShape(double x, double y) {
 		final int Xbox = this.stroke;
 		final int Ybox = this.stroke;
 		
@@ -45,13 +45,13 @@ public class Text extends Shape implements Serializable{
 	}
 
 	@Override
-	public int getHight() {
+	public double getHight() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int getWidth() {
+	public double getWidth() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
@@ -61,13 +61,13 @@ public class Text extends Shape implements Serializable{
 	}
 	
 	@Override
-	public int getInitX() {
+	public double getInitX() {
 		return x1;
 	}
 
 
 	@Override
-	public int getInitY() {
+	public double getInitY() {
 		return y1;
 	}
 
@@ -83,12 +83,12 @@ public class Text extends Shape implements Serializable{
 	}
 
 	@Override
-	public int getEndY() {
+	public double getEndY() {
 		return 0;
 	}
 
 	@Override
-	public int getEndX() {
+	public double getEndX() {
 		return 0;
 	}
 

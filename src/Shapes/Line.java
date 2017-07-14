@@ -2,15 +2,16 @@ package Shapes;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.geom.Line2D;
 import java.io.Serializable;
 
 public class Line extends Shape implements Serializable{
 	
-	private int x1, y1, x2, y2;
+	private double x1, y1, x2, y2;
 	private Color color;
 	private int stroke;
 	
-	public Line(int x1,int y1,int x2,int y2,Color color,int stroke){
+	public Line(double x1,	double y1, double x2, double y2,Color color,int stroke){
         this.x1=x1;  
         this.y1=y1;  
         this.x2=x2;  
@@ -23,14 +24,14 @@ public class Line extends Shape implements Serializable{
 	public void Draw(Graphics2D g) {
 		g.setColor(color);
 		g.setStroke(new BasicStroke(stroke));
-		g.drawLine(x1, y1, x2, y2);
+		g.draw(new Line2D.Double(x1, y1, x2, y2));
 	}
 
 	@Override
-	public boolean inShape(int x, int y) {
+	public boolean inShape(double x, double y) {
 		// in a line , for each x, there will be a unique y
 
-		if (y==(Math.abs(x1-x) * Math.abs(y2-y1))/Math.abs(x2-x1)+y1){
+		if ((int)y==(int)(Math.abs(x1-x) * (int)Math.abs(y2-y1))/(int)Math.abs(x2-x1)+y1){
 			return true;
 		}else{
 			return false;
@@ -38,13 +39,13 @@ public class Line extends Shape implements Serializable{
 	}
 
 	@Override
-	public int getHight() {
+	public double getHight() {
 		// rise
 		return y2-y1;
 	}
 
 	@Override
-	public int getWidth() {
+	public double getWidth() {
 		// run
 		return x2-x1;
 	}
@@ -54,22 +55,22 @@ public class Line extends Shape implements Serializable{
 	}
 
 	@Override
-	public int getInitX() {
+	public double getInitX() {
 		return x1;
 	}
 
 	@Override
-	public int getInitY() {
+	public double getInitY() {
 		return y1;
 	}
 
 	@Override
-	public int getEndY() {
+	public double getEndY() {
 		return y2;
 	}
 
 	@Override
-	public int getEndX() {
+	public double getEndX() {
 		return x2;
 	}
 

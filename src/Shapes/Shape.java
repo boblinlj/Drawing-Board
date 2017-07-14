@@ -12,12 +12,12 @@ public abstract class Shape implements Serializable{
 	public abstract void Draw(Graphics2D g);
 	
 	// return shape parameters
-	public abstract int getInitX();
-	public abstract int getInitY();
-	public abstract int getEndY();
-	public abstract int getEndX();
-	public abstract int getHight();
-	public abstract int getWidth();
+	public abstract double getInitX();
+	public abstract double getInitY();
+	public abstract double getEndY();
+	public abstract double getEndX();
+	public abstract double getHight();
+	public abstract double getWidth();
 	public abstract Color getColor();
 	public abstract int getStroke();
 	
@@ -33,7 +33,7 @@ public abstract class Shape implements Serializable{
 		this.stroke = stroke;
 	}
 	
-	public boolean inShape(int x, int y){return false;}
+	public boolean inShape(double x, double y){return false;}
 	
 
 }

@@ -30,7 +30,7 @@ public class MouseHandler implements MouseListener, KeyListener{
 	private BoardFrame frame;
 	private Graphics2D g;
 	// Start(x1, y1) End(x2, y2)
-	private int x1, y1, x2, y2;
+	private double x1, y1, x2, y2;
 	private Color paint;
 	private ButtonGroup toolBox;
 	private int shapeSelected;
@@ -46,7 +46,6 @@ public class MouseHandler implements MouseListener, KeyListener{
 	
 	private int defaultStroke = 1;
 	private int defaultFrontSize = 20;
-	private int strokePlus = 0;
 	
 	//constructor
 	public MouseHandler(Graphics g, ButtonGroup bg, BoardFrame frame, ArrayList<Shape> shapes) {
@@ -205,8 +204,8 @@ public class MouseHandler implements MouseListener, KeyListener{
 				}else if(key == KeyEvent.VK_EQUALS){
 					Shape currentShape = shapes.get(shapeSelected);
 					if(currentShape instanceof Line){
-						int horizontalChange = add(); 
-						int verticalChange;
+						double horizontalChange = add(); 
+						double verticalChange;
 						verticalChange = Math.abs(currentShape.getEndY()-currentShape.getInitY()) / Math.abs(currentShape.getEndX() - currentShape.getInitX());
 						Shape newLine = new Line(currentShape.getInitX(),currentShape.getInitY(),currentShape.getEndX()+horizontalChange,currentShape.getEndY()+verticalChange, currentShape.getColor(),currentShape.getStroke());
 						currentShape = newLine;
