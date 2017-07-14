@@ -59,4 +59,39 @@ public class Cir extends Shape implements Serializable{
 	public String getString(){
 		return null;
 	}
+	
+	@Override
+	public int getInitX() {
+		return x1;
+	}
+
+
+	@Override
+	public int getInitY() {
+		return y1;
+	}
+
+
+	@Override
+	public int getEndY() {
+		return y2;
+	}
+
+
+	@Override
+	public int getEndX() {
+		return x2;
+	}
+
+
+	@Override
+	public Color getColor() {
+		return color;
+	}
+
+
+	@Override
+	public int getStroke() {
+		return stroke;
+	}
 }

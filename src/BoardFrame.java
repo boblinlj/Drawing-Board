@@ -114,12 +114,12 @@ public class BoardFrame extends JFrame{
 		
 		this.setVisible(true);
 		
-		//add mouse listener
+		//add mouse and keyboard listener
 		Graphics screen =  centerPanel.getGraphics();
 		MouseHandler mouseListener = new MouseHandler(screen, tools, this, shapes);
 //		KeyboardHandler keyboard = new KeyboardHandler(screen, tool, this, shapes);
 		centerPanel.addMouseListener(mouseListener);
-		centerPanel.addMouseMotionListener(mouseListener);
+//		centerPanel.addMouseMotionListener(mouseListener);
 		centerPanel.addKeyListener(mouseListener);
 		centerPanel.setFocusable(true);
 		centerPanel.setFocusTraversalKeysEnabled(false);

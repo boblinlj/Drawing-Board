@@ -59,5 +59,37 @@ public class Text extends Shape implements Serializable{
 	public String getString(){
 		return this.string;
 	}
+	
+	@Override
+	public int getInitX() {
+		return x1;
+	}
+
+
+	@Override
+	public int getInitY() {
+		return y1;
+	}
+
+	@Override
+	public Color getColor() {
+		return color;
+	}
+
+
+	@Override
+	public int getStroke() {
+		return stroke;
+	}
+
+	@Override
+	public int getEndY() {
+		return 0;
+	}
+
+	@Override
+	public int getEndX() {
+		return 0;
+	}
 
 }
