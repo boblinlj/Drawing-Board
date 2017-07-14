@@ -1,5 +1,4 @@
 package Shapes;
-import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
@@ -17,7 +16,12 @@ public class Text extends Shape implements Serializable{
 		this.y1 = y1;
 		this.string = string;
 		this.color = color;
-		this.stroke = stroke;
+		if (stroke<=1){
+			this.stroke = 1;
+		}else{
+			this.stroke = stroke;
+		}
+		
 		
 	}
 

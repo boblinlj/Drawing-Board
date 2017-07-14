@@ -15,6 +15,7 @@ import java.util.ArrayList;
 
 import javax.swing.ButtonGroup;
 import javax.swing.ButtonModel;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 
@@ -25,7 +26,7 @@ import Shapes.Rec;
 import Shapes.Shape;
 import Shapes.Text;
 
-public class MouseHandler implements MouseListener, KeyListener{
+public class MouseHandler implements MouseListener, KeyListener, ActionListener{
 	
 	private BoardFrame frame;
 	private Graphics2D g;
@@ -33,6 +34,7 @@ public class MouseHandler implements MouseListener, KeyListener{
 	private double x1, y1, x2, y2;
 	private Color paint;
 	private ButtonGroup toolBox;
+	// index # of the shape array
 	private int shapeSelected;
 	
 	//mark if a shape is selected
@@ -55,10 +57,13 @@ public class MouseHandler implements MouseListener, KeyListener{
 		this.shapes = shapes;
 	}
 	
+	public MouseHandler(BoardFrame frame){
+		this.frame = frame;
+	}
+	
 	//collect the starting
 	public void mousePressed(MouseEvent e){
 		
-//		selectMarker = false;
 		x1 = e.getX();
 		y1 = e.getY();
 		
@@ -204,9 +209,13 @@ public class MouseHandler implements MouseListener, KeyListener{
 				if(key == KeyEvent.VK_R){
 					remove(shapeSelected);
 				}else if(key == KeyEvent.VK_PERIOD){
-					iterateShapes(add());
+					iterateShapes(add(), false, false, true);
 				}else if(key == KeyEvent.VK_COMMA){
-					iterateShapes(minus());
+					iterateShapes(minus(), false, false, true);
+				}else if(key == KeyEvent.VK_EQUALS){
+					iterateShapes(add(), true, true, false);
+				}else if(key == KeyEvent.VK_MINUS){
+					iterateShapes(minus(), true, true, false);
 				}
 			}
 		}
@@ -228,22 +237,31 @@ public class MouseHandler implements MouseListener, KeyListener{
 	}
 	
 	
-	private void iterateShapes(int step){
+	private void iterateShapes(int step, boolean extendX, boolean extendY, boolean shapeSize){
+		// convert boolean switch to int for calcuations 
+		int i_extendX = (extendX) ? 1 : 0;
+		int i_extendY = (extendY) ? 1 : 0;
+		int i_shapeSize = (shapeSize) ? 1 : 0;
+		
 		Shape currentShape = shapes.get(shapeSelected);
-		if((currentShape.getStroke() + step)>=1){
-			if(currentShape instanceof Rec){
-				Shape newRec = new Rec(currentShape.getInitX(),currentShape.getInitY(),currentShape.getEndX(),currentShape.getEndY(), currentShape.getColor(),currentShape.getStroke() + step);
-				currentShape = newRec;
-			}else if (currentShape instanceof Line){
-				Shape newLine = new Line(currentShape.getInitX(),currentShape.getInitY(),currentShape.getEndX(),currentShape.getEndY(), currentShape.getColor(),currentShape.getStroke() + step);
-				currentShape = newLine;
-			}else if(currentShape instanceof Cir){
-				Shape newCir = new Cir(currentShape.getInitX(),currentShape.getInitY(),currentShape.getEndX(),currentShape.getEndY(), currentShape.getColor(),currentShape.getStroke() + step);
-				currentShape = newCir;
-			}else if(currentShape instanceof Text){
-				Shape newText = new Text(currentShape.getInitX(),currentShape.getInitY(),currentShape.getString(), currentShape.getColor(),currentShape.getStroke() + step);
-				currentShape = newText;
-			}
+		
+		if(currentShape instanceof Rec){
+			Shape newRec = new Rec(currentShape.getInitX(),currentShape.getInitY(),currentShape.getEndX()+i_extendX*step,currentShape.getEndY()+i_extendY*step, currentShape.getColor(),currentShape.getStroke() + i_shapeSize*step);
+			currentShape = newRec;
+		}else if (currentShape instanceof Line){
+			double run = (double)step;
+			double rise;
+			
+			rise = Math.abs(currentShape.getInitY()-currentShape.getEndY()) / Math.abs(currentShape.getEndX()-currentShape.getEndY());
+					
+			Shape newLine = new Line(currentShape.getInitX(),currentShape.getInitY(),currentShape.getEndX()+i_extendX*run,currentShape.getEndY()+i_extendY*rise, currentShape.getColor(),currentShape.getStroke() + i_shapeSize*step);
+			currentShape = newLine;
+		}else if(currentShape instanceof Cir){
+			Shape newCir = new Cir(currentShape.getInitX(),currentShape.getInitY(),currentShape.getEndX()+i_extendX*step,currentShape.getEndY()+i_extendY*step, currentShape.getColor(),currentShape.getStroke() + i_shapeSize*step);
+			currentShape = newCir;
+		}else if(currentShape instanceof Text){
+			Shape newText = new Text(currentShape.getInitX(),currentShape.getInitY(),currentShape.getString(), currentShape.getColor(),currentShape.getStroke() + step);
+			currentShape = newText;
 		}
 		shapes.remove(shapeSelected);
 		shapes.add(currentShape);
@@ -272,6 +290,14 @@ public class MouseHandler implements MouseListener, KeyListener{
 		shapes.remove(shapeSelected);
 		shapes.add(currentShape);
 		frame.centerPanel.repaint();
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		JButton bt = (JButton)e.getSource();
+		// pass the color to current color
+		Color c = bt.getBackground();
+		frame.currentColor = c;	
 	}
 	
 }

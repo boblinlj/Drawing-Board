@@ -99,13 +99,13 @@ public class BoardFrame extends JFrame{
 		rightPanel.add(colorPanel, BorderLayout.SOUTH);
 		
 		//add button listener, to listen color panel
-		ButtonHandler setColor = new ButtonHandler(this);
+		MouseHandler setColor = new MouseHandler(this);
 		
 		
 		// add color buttons
 		for (int i=0 ; i<15 ; i++){
 			JButton colorOption = new JButton();
-			Color c = new Color(i*10,i*5+30,i*7+50);
+			Color c = new Color(i*10,i*6,i*8);
 			colorOption.setBackground(c);
 			colorOption.setPreferredSize(new Dimension(30, 30));
 			colorOption.addActionListener(setColor);

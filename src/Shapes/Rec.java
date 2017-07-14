@@ -19,7 +19,11 @@ public class Rec extends Shape implements Serializable{
         this.x2=x2;  
         this.y2=y2;  
         this.color=color;  
-        this.stroke=stroke;
+		if (stroke<=1){
+			this.stroke = 1;
+		}else{
+			this.stroke = stroke;
+		}
 	}
 	
 	
