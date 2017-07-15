@@ -34,8 +34,17 @@ public class Line extends Shape implements Serializable{
 	@Override
 	public boolean inShape(double x, double y) {
 		// in a line , for each x, there will be a unique y
+		double Y=0;
+		
+		if (y1>y2){
+			Y = Math.abs((Math.abs(x1-x) * Math.abs(y1-y2))/Math.abs(x2-x1)-y1);
+		}else if(y2>=y1){
+			Y = Math.abs((Math.abs(x2-x) * Math.abs(y1-y2))/Math.abs(x2-x1)-y2);
+		}
+		
+		final double range = 5;
 
-		if ((int)y==(int)(Math.abs(x1-x) * (int)Math.abs(y2-y1))/(int)Math.abs(x2-x1)+y1){
+		if (y >= Y - range && y <= Y + range){
 			return true;
 		}else{
 			return false;

@@ -101,6 +101,7 @@ public class MouseHandler implements MouseListener, KeyListener, ActionListener{
 		x2 = e.getX();
 		y2 = e.getY();
 		
+		
 		if("Line".equals(cmd))
 		{
 			Shape line = new Line(x1, y1, x2, y2, g.getColor(),defaultStroke);
@@ -161,7 +162,7 @@ public class MouseHandler implements MouseListener, KeyListener, ActionListener{
 					frame.centerPanel.repaint();
 				}else if(shapes.get(shapeSelected) instanceof Line){
 					// if shape is Line, move shape
-					Shape newLine = new Line(x2, y2, x2-shapes.get(shapeSelected).getWidth(), y2-shapes.get(shapeSelected).getHight(), g.getColor(), shapes.get(shapeSelected).getStroke());
+					Shape newLine = new Line(x2, y2, x2+shapes.get(shapeSelected).getWidth(), y2+shapes.get(shapeSelected).getHight(), g.getColor(), shapes.get(shapeSelected).getStroke());
 					shapes.remove(shapeSelected);
 					shapes.add(newLine);
 					frame.centerPanel.repaint();
@@ -252,9 +253,9 @@ public class MouseHandler implements MouseListener, KeyListener, ActionListener{
 			double run = (double)step;
 			double rise;
 			
-			rise = Math.abs(currentShape.getInitY()-currentShape.getEndY()) / Math.abs(currentShape.getEndX()-currentShape.getEndY());
+			rise = (run * Math.abs(currentShape.getInitY()-currentShape.getEndY()) )/ Math.abs(currentShape.getEndX()-currentShape.getInitX());
 					
-			Shape newLine = new Line(currentShape.getInitX(),currentShape.getInitY(),currentShape.getEndX()+i_extendX*run,currentShape.getEndY()+i_extendY*rise, currentShape.getColor(),currentShape.getStroke() + i_shapeSize*step);
+			Shape newLine = new Line(currentShape.getInitX(),currentShape.getInitY(),currentShape.getEndX()+i_extendX*run,currentShape.getEndY()-i_extendY*rise, currentShape.getColor(),currentShape.getStroke() + i_shapeSize*step);
 			currentShape = newLine;
 		}else if(currentShape instanceof Cir){
 			Shape newCir = new Cir(currentShape.getInitX(),currentShape.getInitY(),currentShape.getEndX()+i_extendX*step,currentShape.getEndY()+i_extendY*step, currentShape.getColor(),currentShape.getStroke() + i_shapeSize*step);
